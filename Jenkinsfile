@@ -19,12 +19,10 @@ pipeline {
                     conjurSecretCredential(credentialsId: 'ccp_client-cert', variable: 'CCP_CLIENT_CERT'),
                     conjurSecretCredential(credentialsId: 'ccp_client-priv-key', variable: 'CCP_CLIENT_PRIV_KEY')
 	            ]) {
-                    sh 'go version'
-                    //sh 'go test -v ./...'
+                    sh 'go test -v ./...'
                 }
             }
         }
-        /*
         stage('Code Analysis') {
             steps {
                 echo 'Analyzing code...'
@@ -39,6 +37,6 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
-        }*/
+        }
     }
 }
