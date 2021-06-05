@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Install Go 1.14.2') {
             steps {
-                sh 'wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local'
+                sh 'wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz'
+                sh 'sudo tar -xz go1.14.2.linux-amd64.tar.gz -C /usr/local'
                 sh 'export PATH=$PATH:/usr/local/go/bin'
             }
         }
