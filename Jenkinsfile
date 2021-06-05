@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        go 'go-1.16.4'
-    }
-
     stages {
         stage('Test') {
             steps {
@@ -15,7 +11,7 @@ pipeline {
                     conjurSecretCredential(credentialsId: 'ccp_client-cert', variable: 'CCP_CLIENT_CERT'),
                     conjurSecretCredential(credentialsId: 'ccp_client-priv-key', variable: 'CCP_CLIENT_PRIV_KEY')
 	            ])
-                
+
                 sh 'go test -v ./...'
             }
         }
