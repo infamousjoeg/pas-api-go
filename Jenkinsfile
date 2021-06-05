@@ -1,14 +1,15 @@
 pipeline {
     agent any
 
+    tools {
+        go 'go-1.16.4'
+    }
+
+    environment {
+        GO111MODULE = 'on'
+    }
+
     stages {
-        stage('Install Go 1.14.2') {
-            steps {
-                sh 'wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz'
-                sh 'sudo tar -xz go1.14.2.linux-amd64.tar.gz -C /usr/local'
-                sh 'export PATH=$PATH:/usr/local/go/bin'
-            }
-        }
         stage('Test') {
             steps {
                 withCredentials([
@@ -18,10 +19,12 @@ pipeline {
                     conjurSecretCredential(credentialsId: 'ccp_client-cert', variable: 'CCP_CLIENT_CERT'),
                     conjurSecretCredential(credentialsId: 'ccp_client-priv-key', variable: 'CCP_CLIENT_PRIV_KEY')
 	            ]) {
-                    sh 'go test -v ./...'
+                    sh 'go version'
+                    //sh 'go test -v ./...'
                 }
             }
         }
+        /*
         stage('Code Analysis') {
             steps {
                 echo 'Analyzing code...'
@@ -36,6 +39,6 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
-        }
+        }*/
     }
 }
