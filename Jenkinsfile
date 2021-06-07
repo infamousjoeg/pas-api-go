@@ -10,6 +10,12 @@ pipeline {
     }
 
     stages {
+        stage('Lint & Vet') {
+            steps {
+                sh 'golint ./...'
+                sh 'go vet'
+            }
+        }
         stage('Test') {
             steps {
                 withCredentials([
@@ -19,8 +25,11 @@ pipeline {
                     conjurSecretCredential(credentialsId: 'ccp_client-cert', variable: 'CCP_CLIENT_CERT'),
                     conjurSecretCredential(credentialsId: 'ccp_client-priv-key', variable: 'CCP_CLIENT_PRIV_KEY')
 	            ]) {
+                    sh 'echo $CCP_CLIENT_CERT > /tmp/client.crt'
+                    sh 'echo $CCP_CLIENT_PRIV_KEY > /tmp/client.key' 
                     sh 'go test -v ./...'
                 }
+
             }
         }
         stage('Code Analysis') {
