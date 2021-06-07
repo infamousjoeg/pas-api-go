@@ -12,7 +12,6 @@ pipeline {
     stages {
         stage('Lint & Vet') {
             steps {
-                sh 'sudo apt-get install -y golint'
                 sh 'golint ./...'
                 sh 'go vet'
             }
