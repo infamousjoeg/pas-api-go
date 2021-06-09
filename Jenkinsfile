@@ -30,20 +30,6 @@ pipeline {
 
             }
         }
-        stage('SonarCloud Code Analysis') {
-            environment {
-                SCANNER_HOME = tool 'SonarQubeScanner4.6.2.2472'
-                ORGANIZATION = "infamousjoeg"
-                PROJECT_NAME = "infamousjoeg_pas-api-go"
-            }
-            steps {
-                withSonarQubeEnv("SonarCloud") {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
-                    -Dsonar.projectKey=$PROJECT_NAME \
-                    -Dsonar.sources=.'''
-                }
-            }
-        }
         stage('Build') {
             steps {
                 sh 'go build -o cybr .'
