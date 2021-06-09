@@ -30,7 +30,7 @@ pipeline {
 
             }
         }
-        stage('Code Analysis') {
+        stage('SonarCloud Code Analysis') {
             environment {
                 SCANNER_HOME = tool 'SonarQubeScanner4.6.2.2472'
                 ORGANIZATION = "infamousjoeg"
