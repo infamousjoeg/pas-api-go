@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Code Analysis') {
             steps {
-                echo 'Analyzing code...'
+                sh 'sonar-scanner'
             }
         }
         stage('Build') {
