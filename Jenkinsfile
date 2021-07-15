@@ -20,11 +20,11 @@ pipeline {
             steps {
                 withCredentials([
                     conjurSecretCredential(credentialsId: 'pas_hostname', variable: 'PAS_HOSTNAME'),
-	                conjurSecretCredential(credentialsId: 'pas_username', variable: 'PAS_USERNAME'),
+	            conjurSecretCredential(credentialsId: 'pas_username', variable: 'PAS_USERNAME'),
                     conjurSecretCredential(credentialsId: 'pas_password', variable: 'PAS_PASSWORD'),
                     conjurSecretCredential(credentialsId: 'ccp_client-cert', variable: 'CCP_CLIENT_CERT'),
                     conjurSecretCredential(credentialsId: 'ccp_client-priv-key', variable: 'CCP_CLIENT_PRIVATE_KEY')
-	            ]) {
+	        ]) {
                     sh 'go test -v ./...'
                 }
 
