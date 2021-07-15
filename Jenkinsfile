@@ -5,15 +5,11 @@ pipeline {
         go 'go-1.16.4'
     }
 
-    environment {
-        GO111MODULE = 'on'
-    }
-
     stages {
         stage('Lint & Vet') {
             steps {
-                sh 'golint ./...'
-                sh 'go vet'
+                sh 'GO111MODULE=on golint ./...'
+                sh 'GO111MODULE=on go vet'
             }
         }
         stage('Test') {
@@ -25,13 +21,13 @@ pipeline {
                     conjurSecretCredential(credentialsId: 'ccp_client-cert', variable: 'CCP_CLIENT_CERT'),
                     conjurSecretCredential(credentialsId: 'ccp_client-priv-key', variable: 'CCP_CLIENT_PRIVATE_KEY')
 	        ]) {
-                    sh 'go test -v ./...'
+                    sh 'GO111MODULE=on go test -v ./...'
                 }
             }
         }
         stage('Build') {
             steps {
-                sh 'go build -o cybr .'
+                sh 'GO111MODULE=on go build -o cybr .'
             }
         }
         stage('Release') {
