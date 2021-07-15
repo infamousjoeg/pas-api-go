@@ -27,7 +27,6 @@ pipeline {
 	        ]) {
                     sh 'go test -v ./...'
                 }
-
             }
         }
         stage('Build') {
